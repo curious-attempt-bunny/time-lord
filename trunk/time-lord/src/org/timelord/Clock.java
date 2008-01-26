@@ -1,6 +1,8 @@
 package org.timelord;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Clock {
 
@@ -35,6 +37,24 @@ public class Clock {
 		}
 		
 		return result;
+	}
+	
+//	public static Calendar getCalendar(Locale locale) {
+//		Calendar result = Calendar.getInstance(locale);
+//		
+//		if (getClockState().isFrozen()) {
+//			result.setTimeInMillis(getClockState().getTimeNow());
+//		}
+//		
+//		return result;
+//	}
+	
+	public static Date getDate() {
+		if (getClockState().isFrozen()) {
+			return new Date(getClockState().getTimeNow());
+		}
+		
+		return new Date();
 	}
 	
 	public static long currentTimeMillis() {
