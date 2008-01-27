@@ -39,11 +39,6 @@ public class TimeFreezeTest extends TestCase {
 		Clock.thaw();
 	}
 
-	/*
-	 * TODO Calendar.getInstance(Locale aLocale) Calendar.getInstance(TimeZone
-	 * zone) Calendar.getInstance(TimeZone zone, Locale aLocale)
-	 */
-
 	public void testFreezesCalendar() throws Exception {
 		Calendar expected = Calendar.getInstance();
 
