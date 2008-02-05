@@ -12,7 +12,7 @@ define "TimeLord" do
   manifest["Implementation-Vendor"] = COPYRIGHT
   compile.with JAVASSIT
   test.compile.with JAVASSIT
-  test.using :fork=>:once, :java_args=> [ "-Djava.system.class.loader=org.timelord.TimeLordClassLoader" ]
+  test.using :java_args=> [ "-Djava.system.class.loader=org.timelord.TimeLordClassLoader" ]
   
   package(:jar)
 end
