@@ -20,7 +20,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.timelord.TestHelper;
+import org.timelord.FreezeTestHelper;
 
 public class TimeLordTestSetupTest extends TestCase {
 	public static Test suite() {
@@ -32,6 +32,6 @@ public class TimeLordTestSetupTest extends TestCase {
 	}
 
 	public void testFrozen() throws Exception {
-		TestHelper.testCalendarFrozen();
+		FreezeTestHelper.testCalendarFrozen();
 	}
 }

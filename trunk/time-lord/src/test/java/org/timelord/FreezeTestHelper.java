@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 import org.junit.Assert;
 
-public class TestHelper {
+public class FreezeTestHelper {
 
 	public static void testCalendarFrozen() throws Exception {
 		Calendar expected = Calendar.getInstance();

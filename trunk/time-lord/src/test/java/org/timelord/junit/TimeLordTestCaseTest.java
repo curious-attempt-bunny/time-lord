@@ -16,10 +16,10 @@
  */
 package org.timelord.junit;
 
-import org.timelord.TestHelper;
+import org.timelord.FreezeTestHelper;
 
 public class TimeLordTestCaseTest extends TimeLordTestCase {
 	public void testFrozen() throws Exception {
-		TestHelper.testCalendarFrozen();
+		FreezeTestHelper.testCalendarFrozen();
 	}
 }
