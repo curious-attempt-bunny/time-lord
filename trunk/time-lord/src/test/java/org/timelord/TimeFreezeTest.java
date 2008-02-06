@@ -34,13 +34,9 @@ public class TimeFreezeTest extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		super.tearDown();
-
 		Clock.thaw();
-	}
 
-	public void testNothing() throws Exception {
-
+		super.tearDown();
 	}
 
 	public void testFreezesCalendar() throws Exception {

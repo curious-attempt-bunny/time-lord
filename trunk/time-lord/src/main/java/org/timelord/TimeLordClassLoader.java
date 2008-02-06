@@ -17,42 +17,77 @@
 
 package org.timelord;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CodeConverter;
 import javassist.CtClass;
 
-public class TimeLordClassLoader extends java.lang.ClassLoader {
+public class TimeLordClassLoader extends ClassLoader {
 	private final ClassPool pool;
+	private final Set<String> initialPackages;
 
 	public TimeLordClassLoader(ClassLoader classLoader) {
 		super(classLoader);
 
 		pool = ClassPool.getDefault();
+		initialPackages = new HashSet<String>();
+
+		for (Package p : getPackages()) {
+			initialPackages.add(p.getName());
+		}
 	}
 
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
-		return loadAndInstrumentClass(name);
+		try {
+			if (isInstrumentable(name)) {
+				return loadAndInstrumentClass(name);
+			}
+		} catch (Throwable e) {
+			// if we fail to instrument we'll use the default system class
+			// loader
+		}
+
+		return super.loadClass(name);
 	}
 
-	private Class<?> loadAndInstrumentClass(String name)
-			throws ClassFormatError, ClassNotFoundException {
-		try {
-			CtClass cc = pool.get(name);
-
-			if (!cc.isInterface()) {
-				if (!isTimelordClockImplementation(name)) {
-					instrumentClass(name, cc);
-				}
-			}
-
-			byte[] b = cc.toBytecode();
-			return defineClass(name, b, 0, b.length);
-		} catch (Exception e) {
-			// we will fail to instrument system classes, for instance
-			return super.loadClass(name);
+	private boolean isInstrumentable(String name) {
+		int pos = name.lastIndexOf('.');
+		if (pos == -1) {
+			return true;
 		}
+
+		String packageName = name.substring(0, pos);
+
+		if (packageName.equals("org.timelord")) {
+			return true;
+		}
+
+		boolean isInitialPackage = initialPackages.contains(packageName);
+
+		// if (isInitialPackage) {
+		// System.out.println("Initial package is not instrumentable: "
+		// + packageName);
+		// }
+
+		return !isInitialPackage;
+	}
+
+	private Class<?> loadAndInstrumentClass(String name) throws Exception {
+		CtClass cc = pool.get(name);
+
+		if (!cc.isInterface()) {
+			if (!isTimelordClockImplementation(name)) {
+				instrumentClass(name, cc);
+			}
+		}
+
+		byte[] b = cc.toBytecode();
+		return defineClass(name, b, 0, b.length);
+
 	}
 
 	private boolean isTimelordClockImplementation(String name) {
