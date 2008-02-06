@@ -14,12 +14,20 @@
  *  limitations under the License.
  *  
  */
-package org.timelord.junit;
+package org.timelord.jbehave;
 
-import org.timelord.TestHelper;
+import java.util.Calendar;
 
-public class TimeLordTestCaseTest extends TimeLordTestCase {
-	public void testFrozen() throws Exception {
-		TestHelper.testCalendarFrozen();
+import org.jbehave.core.mock.UsingMatchers;
+
+public class WithoutAnnotationTimeIsThawedBehaviour extends UsingMatchers {
+	public void shouldFreezeTime() throws Exception {
+		Calendar earlier = Calendar.getInstance();
+
+		Thread.sleep(10);
+
+		Calendar later = Calendar.getInstance();
+
+		ensureThat(later.after(earlier));
 	}
 }

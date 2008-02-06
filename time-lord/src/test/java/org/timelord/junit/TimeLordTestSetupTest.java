@@ -16,11 +16,11 @@
  */
 package org.timelord.junit;
 
-import java.util.Calendar;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.timelord.TestHelper;
 
 public class TimeLordTestSetupTest extends TestCase {
 	public static Test suite() {
@@ -32,12 +32,6 @@ public class TimeLordTestSetupTest extends TestCase {
 	}
 
 	public void testFrozen() throws Exception {
-		Calendar expected = Calendar.getInstance();
-
-		Thread.sleep(10);
-
-		Calendar actual = Calendar.getInstance();
-
-		assertEquals(expected, actual);
+		TestHelper.testCalendarFrozen();
 	}
 }

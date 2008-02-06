@@ -24,6 +24,7 @@ import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CodeConverter;
 import javassist.CtClass;
+import javassist.NotFoundException;
 
 public class TimeLordClassLoader extends ClassLoader {
 	private final ClassPool pool;
@@ -91,7 +92,8 @@ public class TimeLordClassLoader extends ClassLoader {
 	}
 
 	private boolean isTimelordClockImplementation(String name) {
-		return name.equals("org.timelord.Clock");
+		return name.equals("org.timelord.Clock")
+				|| name.equals("org.timelord.jbehave.TimeLordListener");
 	}
 
 	private void instrumentClass(String name, CtClass cc)
@@ -131,11 +133,33 @@ public class TimeLordClassLoader extends ClassLoader {
 
 			CtClass date = pool.get("java.util.Date");
 			codeConverter.replaceNew(date, clock, "getDate");
+
+			if (isJBehaveInsertionPoint(name)) {
+				patchJBehave(codeConverter);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to create CodeCoverter", e);
 		}
 
 		cc.instrument(codeConverter);
+	}
+
+	private void patchJBehave(CodeConverter codeConverter)
+			throws NotFoundException {
+		// NOTE this is a dirty hack to get JBehave to support our TimeLord
+		// annotation
+		CtClass listener = pool
+				.get("org.jbehave.core.listener.PlainTextListener");
+
+		CtClass writer = pool.get("java.io.Writer");
+		CtClass timer = pool.get("org.jbehave.core.util.Timer");
+
+		CtClass ourListener = pool.get("org.timelord.jbehave.TimeLordListener");
+		codeConverter.replaceNew(listener, ourListener, "getInstance");
+	}
+
+	private boolean isJBehaveInsertionPoint(String name) {
+		return "org.jbehave.core.BehaviourRunner".equals(name);
 	}
 
 }
