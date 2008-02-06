@@ -40,13 +40,7 @@ public class TimeFreezeTest extends TestCase {
 	}
 
 	public void testFreezesCalendar() throws Exception {
-		Calendar expected = Calendar.getInstance();
-
-		Thread.sleep(10);
-
-		Calendar actual = Calendar.getInstance();
-
-		assertEquals(expected, actual);
+		TestHelper.testCalendarFrozen();
 	}
 
 	public void testFreezesDate() throws Exception {

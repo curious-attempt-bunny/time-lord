@@ -14,12 +14,12 @@
  *  limitations under the License.
  *  
  */
-package org.timelord.junit;
+package org.timelord.annotations;
 
-import org.timelord.TestHelper;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-public class TimeLordTestCaseTest extends TimeLordTestCase {
-	public void testFrozen() throws Exception {
-		TestHelper.testCalendarFrozen();
-	}
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TimeLord {
+
 }

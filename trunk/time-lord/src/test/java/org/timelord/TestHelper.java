@@ -14,12 +14,22 @@
  *  limitations under the License.
  *  
  */
-package org.timelord.junit;
+package org.timelord;
 
-import org.timelord.TestHelper;
+import java.util.Calendar;
 
-public class TimeLordTestCaseTest extends TimeLordTestCase {
-	public void testFrozen() throws Exception {
-		TestHelper.testCalendarFrozen();
+import org.junit.Assert;
+
+public class TestHelper {
+
+	public static void testCalendarFrozen() throws Exception {
+		Calendar expected = Calendar.getInstance();
+
+		Thread.sleep(10);
+
+		Calendar actual = Calendar.getInstance();
+
+		Assert.assertEquals(expected, actual);
 	}
+
 }

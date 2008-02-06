@@ -16,22 +16,14 @@
  */
 package org.timelord.junit;
 
-import java.util.Calendar;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.timelord.TestHelper;
 
 @RunWith(TimeLordRunner.class)
 public class TimeLordRunnerTest {
 	@Test
 	public void testFrozen() throws Exception {
-		Calendar expected = Calendar.getInstance();
-
-		Thread.sleep(10);
-
-		Calendar actual = Calendar.getInstance();
-
-		Assert.assertEquals(expected, actual);
+		TestHelper.testCalendarFrozen();
 	}
 }

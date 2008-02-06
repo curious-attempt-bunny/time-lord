@@ -14,12 +14,14 @@
  *  limitations under the License.
  *  
  */
-package org.timelord.junit;
+package org.timelord.jbehave;
 
 import org.timelord.TestHelper;
+import org.timelord.annotations.TimeLord;
 
-public class TimeLordTestCaseTest extends TimeLordTestCase {
-	public void testFrozen() throws Exception {
+@TimeLord
+public class AnnotationFreezesTimeBehaviour {
+	public void shouldFreezeTime() throws Exception {
 		TestHelper.testCalendarFrozen();
 	}
 }
