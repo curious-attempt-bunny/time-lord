@@ -40,7 +40,7 @@ public class TimeFreezeTest extends TestCase {
 	}
 
 	public void testFreezesCalendar() throws Exception {
-		TestHelper.testCalendarFrozen();
+		FreezeTestHelper.testCalendarFrozen();
 	}
 
 	public void testFreezesDate() throws Exception {

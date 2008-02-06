@@ -16,12 +16,12 @@
  */
 package org.timelord.jbehave;
 
-import org.timelord.TestHelper;
+import org.timelord.FreezeTestHelper;
 import org.timelord.annotations.TimeLord;
 
 @TimeLord
 public class AnnotationFreezesTimeBehaviour {
 	public void shouldFreezeTime() throws Exception {
-		TestHelper.testCalendarFrozen();
+		FreezeTestHelper.testCalendarFrozen();
 	}
 }
