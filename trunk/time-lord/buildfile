@@ -14,12 +14,14 @@
 # limitations under the License.
 #
  
-VERSION_NUMBER = "1.0.0"
-NEXT_VERSION = "1.0.1"
+VERSION_NUMBER = "1.1.0"
+NEXT_VERSION = "1.1.1"
 GROUP = "TimeLord"
-COPYRIGHT = "Merlyn Albery-Speyer"
+COPYRIGHT = "Merlyn Albery-Speyer 2008"
 JAVASSIT = "jboss:javassist:jar:3.6.ga"
 JUNIT = "junit:junit:jar:4.3.1"
+JBEHAVE = "org.jbehave:jbehave:jar:1.0.1"
+
 repositories.remote << "http://www.ibiblio.org/maven2/"
 
 desc "The Timelord project"
@@ -27,7 +29,7 @@ define "TimeLord" do
   project.version = VERSION_NUMBER
   project.group = GROUP
   manifest["Implementation-Vendor"] = COPYRIGHT
-  compile.with JAVASSIT, JUNIT
+  compile.with JAVASSIT, JUNIT, JBEHAVE
   test.compile.with JAVASSIT, JUNIT
   test.using :java_args=> [ "-Djava.system.class.loader=org.timelord.TimeLordClassLoader" ]
   
