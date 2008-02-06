@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  
  */
-package org.timelord;
+package org.timelord.junit;
 
 import java.util.Calendar;
 
@@ -22,13 +22,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.timelord.junit.TimeLordTestSetup;
-
-public class JUnitTestSetupTest extends TestCase {
+public class TimeLordTestSetupTest extends TestCase {
 	public static Test suite() {
 		TestSuite suite = new TestSuite();
 
-		suite.addTestSuite(JUnitTestSetupTest.class);
+		suite.addTestSuite(TimeLordTestSetupTest.class);
 
 		return new TimeLordTestSetup(suite);
 	}
